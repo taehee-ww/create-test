@@ -1,0 +1,181 @@
+필수 약관에 동의해야만 다음 단계로 넘어갈 수 있다:
+  - 페이지로 이동: 회원가입
+  - JS: "parent = page.getByRole('region', { name: '약관동의' });"
+
+  - 비활성화된다: 확인
+  - 클릭:
+      체크박스: 이용약관
+  - 비활성화된다: 확인
+  - 클릭:
+      체크박스: 개인정보처리방침
+  - 활성화된다: 확인
+
+  - 클릭:
+      체크박스: 마케팅 활용 동의
+  - 체크된다: 전체동의
+  - 활성화된다: 확인
+
+전체동의를 누르면 모든 약관에 동의하고, 다시 누르면 모두 취소된다:
+  - 페이지로 이동: 회원가입
+  - JS: "parent = page.getByRole('region', { name: '약관동의' });"
+
+  - 클릭:
+      체크박스: 전체동의
+  - 체크된다: 이용약관
+  - 체크된다: 개인정보처리방침
+  - 체크된다: 마케팅 활용 동의
+  - 체크된다: 전체동의
+
+  - 클릭:
+      체크박스: 전체동의
+  
+  - 체크되지 않는다: 이용약관
+  - 체크되지 않는다: 개인정보처리방침
+  - 체크되지 않는다: 마케팅 활용 동의
+
+
+모든 항목을 체크하면 전체 약관 동의가 체크된다:
+  - 클릭:
+      체크박스: 이용약관
+  - 클릭:
+      체크박스: 개인정보처리방침
+  - 클릭:
+      체크박스: 마케팅 활용 동의
+
+  - 체크된다: 전체동의
+
+  - 클릭:
+      체크박스: 개인정보처리방침
+  - 체크되지 않는다: 전체동의
+
+  - 클릭:
+      체크박스: 개인정보처리방침
+  - 체크된다: 전체동의
+
+중복된 이메일을 입력하면 "이미 가입된 이메일 주소입니다"라고 경고가 뜬다:
+  - 페이지로 이동: 회원가입
+  - JS: "parent = page.getByRole('region', { name: '약관동의' });"
+  - 클릭:
+      체크박스: 전체동의
+  - 클릭: 확인
+
+  - JS: "parent = page.getByRole('region', { name: '이메일' });"
+
+  - 입력:
+      라벨: 이메일 주소
+      값: taehee.kim@wonderwall.kr
+  - 클릭: 확인
+
+  - 보인다:
+      경고: 이미 가입된 이메일 주소입니다. 
+
+올바른 양식의 이메일을 입력하면 다음 단계로 넘어갈 수 있다:
+  - 페이지로 이동: 회원가입
+  - JS: "parent = page.getByRole('region', { name: '약관동의' });"
+  - 클릭:
+      체크박스: 전체동의
+  - 클릭: 확인
+
+  - JS: "parent = page.getByRole('region', { name: '이메일' });"
+    
+  - 비활성화된다: 확인
+
+  - 입력:
+      라벨: 이메일 주소
+      값: test-123@wonderwall
+  - 비활성화된다: 확인
+
+  - 클릭: 지우기
+
+  - 비어있다: 이메일 주소
+
+  - 입력:
+      라벨: 이메일 주소
+      값: test-123@wonderwall.kr
+    
+  - 활성화된다: 확인
+
+메일로 전송된 인증번호를 입력하면, 다음 단계로 넘어갈 수 있다:
+  - JS: "const HOST = 'https://store-api-dev.frommyarti.com';"
+  - JS: "const MockEmail = { codeId: 'd3f47335-1c5d-4412-a065-34aa930b2705', expiredDate: Date.now() + 1000 * 30 };"
+  - JS: "await page.route(HOST + '/auth/email', async route => route.fulfill({ json: { code: 200, data: MockEmail } }));"
+  - JS: "await page.route(HOST+'/auth/email/verify', (route, request) => { if (request.postDataJSON().code === '181029') { route.fulfill({ json: { code: 201 } }); } else { route.fulfill({ json: { code: 400 } }); } });"
+
+  - 페이지로 이동: 회원가입
+  - JS: "parent = page.getByRole('region', { name: '약관동의' });"
+  - 클릭:
+      체크박스: 전체동의
+  - 클릭: 확인
+
+  - JS: "parent = page.getByRole('region', { name: '이메일' });"
+
+  - 입력:
+      라벨: 이메일 주소
+      값: test-123@wonderwall.kr
+    
+  - 클릭: 확인
+
+  - JS: "parent = page.getByRole('region', { name: '인증코드' });"
+
+  - 보인다:
+      경고: 메일로 인증번호를 전송하였습니다.
+
+  - 입력:
+      라벨: 인증번호
+      값: '123456'
+
+  - 보인다:
+      경고: 인증번호가 맞지 않습니다.
+
+  - 입력:
+      라벨: 인증번호
+      값: '181029'
+
+  - 안보인다:
+      경고: 인증번호가 맞지 않습니다.
+
+
+비밀번호 양식에 맞게 입력하면 회원가입이 완료된다:
+  - JS: "const HOST = 'https://store-api-dev.frommyarti.com';"
+  - JS: "const MockEmail = { codeId: 'd3f47335-1c5d-4412-a065-34aa930b2705', expiredDate: Date.now() + 1000 * 30 };"
+  - JS: "await page.route(HOST + '/auth/email', route => route.fulfill({ json: { code: 200, data: MockEmail } }));"
+  - JS: "await page.route(HOST+'/auth/email/verify', (route, request) => { if (request.postDataJSON().code === '181029') { route.fulfill(); } else { route.fulfill({ status: 400 }); } });"
+  - JS: "const me = { 'id': '497f6eca-6276-4993-bfeb-53cbbbba6f08', 'created': 1681648843454, 'email': 'user@example.com' }"
+  - JS: "await page.route(HOST+'/auth/signup', route => route.fulfill({ json: { code: 201, data: { token: 'test', me } } }));"
+
+  - 페이지로 이동: 회원가입
+  - JS: "parent = page.getByRole('region', { name: '약관동의' });"
+  - 클릭:
+      체크박스: 전체동의
+  - 클릭: 확인
+
+  - JS: "parent = page.getByRole('region', { name: '이메일' });"
+  - 입력:
+      라벨: 이메일 주소
+      값: test-123@wonderwall.kr
+  - 클릭: 확인
+
+  - JS: "parent = page.getByRole('region', { name: '인증코드' });"
+  - 입력:
+      라벨: 인증번호
+      값: '181029'
+  
+  - 체크되지 않는다: 문자길이 최소 8자리 이상, 20자리 이하
+  - 체크되지 않는다: 영문+숫자 조합 포함
+
+  - 입력:
+      라벨: 비밀번호
+      값: 'abc1'
+
+  - 체크된다: 영문+숫자 조합 포함
+
+  - 입력:
+      라벨: 비밀번호
+      값: 'abc123d!'
+  
+  - 체크된다: 문자길이 최소 8자리 이상, 20자리 이하
+  - 클릭: 확인
+
+  - 보인다: 회원가입 완료!
+
+  - 클릭: 홈으로 가기

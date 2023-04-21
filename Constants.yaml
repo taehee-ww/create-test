@@ -1,0 +1,9 @@
+HOST: http://localhost:3000
+상품: /product
+유니크_상품: /goods/220
+일체형_상품_이채연: /goods/220
+조합형_상품: /goods/220
+패키지_상품: /goods/220
+번들_상품: /goods/220
+로그인: /signin
+회원가입: /signup
