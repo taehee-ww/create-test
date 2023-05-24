@@ -1,0 +1,275 @@
+{
+  "$id": "/action.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "클릭": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "버튼을 클릭합니다. 버튼이 아닌 경우는 라벨이나 링크인지 여부를 명시해야 합니다\nex)\n 클릭: 구매하기"
+            },
+            {
+              "type": "object",
+              "propertyNames": {
+                "type": "string",
+                "enum": ["버튼", "링크", "체크박스"],
+                "description": "버튼이나 링크, 체크박스를 textContent나 aria-label과 같은 접근 가능한 이름으로 찾아서 클릭합니다."
+              },
+              "patternProperties": {
+                "(버튼|링크|체크박스)": { "type": "string" }
+              }
+            }
+          ]
+        }
+      },
+      "required": ["클릭"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "서버": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "data": {
+              "type": "string"
+            }
+          },
+          "required": ["path"]
+        }
+      },
+      "required": ["서버"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "기다린다": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "텍스트가 보이기를 기다립니다. 데이터 로딩이 오래 걸리는 경우에 유용합니다. \nex)\n#강혜원 이라는 텍스트가 보이기를 기다린다\n 기다린다: 강혜원"
+            },
+            {
+              "type": "object",
+              "propertyNames": {
+                "type": "string",
+                "enum": ["버튼", "링크", "체크박스"],
+                "description": "버튼이나 링크, 체크박스를 textContent나 aria-label과 같은 접근 가능한 이름으로 찾아서 기다린다합니다."
+              },
+              "patternProperties": {
+                "(버튼|링크|체크박스)": { "type": "string" }
+              }
+            }
+          ]
+        }
+      },
+      "required": ["기다린다"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "$": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "enum": ["버튼", "링크", "체크박스"]
+          },
+          "patternProperties": {
+            "(버튼|링크|체크박스)": { "type": "string" }
+          }
+        }
+      },
+      "required": ["$"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "JS": { "type": "string" }
+      },
+      "required": ["JS"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "입력": {
+          "type": "object",
+          "properties": {
+            "라벨": { "type": "string" },
+            "값": { "type": "string" }
+          }
+        }
+      },
+      "required": ["입력"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "활성화된다": { "type": "string" }
+      },
+      "required": ["활성화된다"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "지움": { "type": "string" }
+      },
+      "required": ["지움"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "비어있다": { "type": "string" }
+      },
+      "required": ["비어있다"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "비활성화된다": { "type": "string" }
+      },
+      "required": ["비활성화된다"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "체크된다": { "type": "string" }
+      },
+      "required": ["체크된다"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "체크되지 않는다": { "type": "string" }
+      },
+      "required": ["체크되지 않는다"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "페이지로 이동": { "type": "string" }
+      },
+      "required": ["페이지로 이동"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "페이지여야한다": { "type": "string" }
+      },
+      "required": ["페이지여야한다"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "보인다": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "properties": { "경고": { "type": "string" } }
+            }
+          ]
+        }
+      },
+      "required": ["보인다"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "안보인다": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "properties": { "경고": { "type": "string" } }
+            }
+          ]
+        }
+      },
+      "required": ["안보인다"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "경고창": { "type": "string" },
+        "안에서": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "클릭": { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["경고창", "안에서"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "폼": { "type": "string" },
+        "안에서": {
+          "type": "array",
+          "items": {
+            "$ref": "./create-test-schema.json/action"
+          }
+        }
+      },
+      "required": ["폼", "안에서"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "목록": { "type": "string" },
+        "안에서": {
+          "type": "array",
+          "items": {
+            "$ref": "./create-test-schema.json/action"
+          }
+        }
+      },
+      "required": ["목록", "안에서"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "섹션": { "type": "string" },
+        "안에서": {
+          "type": "array",
+          "items": {
+            "$ref": "./create-test-schema.json/action"
+          }
+        }
+      },
+      "required": ["섹션", "안에서"],
+      "additionalProperties": false
+    }
+  ]
+}

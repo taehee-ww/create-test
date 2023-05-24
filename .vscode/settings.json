@@ -1,9 +1,8 @@
 {
-    "deno.enable": true,
-    "deno.lint": true,
-    "editor.defaultFormatter": "denoland.vscode-deno",
-    "yaml.schemas": {
-        "./create-test-schema.json": "file:///Users/taehee.kim/Documents/github/create-test/features/**/*.yaml",
-        "file:///Users/taehee.kim/Documents/github/create-test/create-test-schema.json": "file:///Users/taehee.kim/Documents/github/create-test/features/signup.yaml"
-    }
+  "deno.enable": true,
+  "deno.lint": true,
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "yaml.schemas": {
+    "/Users/taehee.kim/Documents/github/create-test/create-test-schema.json": "file:///Users/taehee.kim/Documents/github/create-test/features/privateContents.yaml"
+  }
 }
